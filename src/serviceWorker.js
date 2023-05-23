@@ -4,19 +4,11 @@ const staticAssets = [
 ];
 
 self.addEventListener('install', async event => {
-    const cache = await caches.open('static-meme');
-    cache.addAll(staticAssets);
-});
-
-self.addEventListener('fetch', event => {
-    const {request} = event;
-    const url = new URL(request.url);
-    if(url.origin === location.origin) {
-        event.respondWith(cacheData(request));
-    } else {
-        event.respondWith(networkFirst(request));
-    }
-
+    event.waitUntil(
+        caches.open('static-spotify').then((cache) => {
+            cache.addAll(staticAssets)
+        })
+    )    
 });
 
 async function cacheData(request) {
@@ -36,3 +28,14 @@ async function networkFirst(request) {
 
     }
 }
+
+self.addEventListener('fetch', event => {
+    const {request} = event;
+    const url = new URL(request.url);
+    if(url.origin === location.origin) {
+        event.respondWith(cacheData(request));
+    } else {
+        event.respondWith(networkFirst(request));
+    }
+
+});
