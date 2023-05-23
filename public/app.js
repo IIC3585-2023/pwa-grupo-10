@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getDatabase } from "firebase/database";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -19,12 +20,13 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const db = getDatabase();
 const analytics = getAnalytics(app);
 
-const apiKey = "nWprVPSy88c4Z5TpiDWrwSF7vmVlS3ry"
+const api = "nWprVPSy88c4Z5TpiDWrwSF7vmVlS3ry"
 
 async function fetchTrending() {
-    const res = await fetch(`https://api.giphy.com/v1/gifs/trending?api_key=${apiKey}&limit=25`);
+    const res = await fetch(`https://api.giphy.com/v1/gifs/trending?api_key=${api}&limit=25`);
     const json = await res.json();
 
     console.log(json.data)
