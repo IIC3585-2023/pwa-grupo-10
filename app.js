@@ -8,8 +8,8 @@ async function fetchTrending() {
     const container = document.getElementsByClassName("container")
     console.log("aaaaaaaaaaaa", container)
     let output = ""
-    json.data.forEach(({id, embed_url}) => {
-        output += `<img id=${id} src=${embed_url} /><br />`
+    json.data.forEach(({id}) => {
+        output += `<img id=${id} alt=${id} src=https://i.giphy.com/media/${id}/giphy.webp /><br />`
     })
     container[0].innerHTML = output
 }
