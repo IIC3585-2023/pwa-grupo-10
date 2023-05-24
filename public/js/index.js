@@ -2,7 +2,11 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
 import { getDatabase, onValue, ref, set, push } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-database.js";
 import { getStorage, getDownloadURL, ref as refStorage, uploadBytes } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-storage.js"
-import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-messaging.js"
+import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-messaging.js"
+// const AWS = require('aws-sdk')
+// dotenv.config();
+
+
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -23,8 +27,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app)
-const db = getDatabase()
-const storage = getStorage()
+// const db = getDatabase()
+// const storage = getStorage()
 // const songsRef = ref(db, 'songs/')
 // onValue(songsRef, (snapshot) => {
 //     const data = snapshot.val()
@@ -32,20 +36,29 @@ const storage = getStorage()
 // })
 
 if('serviceWorker' in navigator){
-    navigator.serviceWorker.register('/sw.js')
+    navigator.serviceWorker.register('/js/sw.js')
         .then(registration => {
             console.log('Service Worker registered:', registration)
             Notification.requestPermission().then((permission) => {
                 if (permission == "granted"){
                     console.log("Notification permission granted")
-                    getToken(messaging, {vapidKey: "BNUMGY8F649872dpuSp9FsKLY1AJD-54HbDxaeT_MSs5xmoO_V34ubSlBq4eosugHbMAMSi5Doj208RGBuCEqyo"}).then((token) => {
-                        console.log('FCM registration token:', token)
-                    })
+                    getToken(messaging, {vapidKey: "BMEUMeXFzdfETXOOAJ8u6wdXDoEnOgpv8GPIsjJv3GJyhvkVJ50VfivDt8YiGO-gkwKLir81cDGYPDQzXTQ69PA"})
+                        .then((token) => {
+                            if (token) {
+                                console.log("token:", token)
+                            }
+                            else {
+                                console.log('No registration token available')
+                            }
+                        })
+                            //console.log('FCM registration token:', token)
+                        .catch((err) => {
+                            console.log('An error occurred while retrieving token. ', err)
+                        })
                 } else {
                     console.log("Notification permission failed")
                 }
-            })
-        })
+            })})
         .catch(err => console.log('Service worker not registered:', err));
 }
 
@@ -116,11 +129,28 @@ async function addSong(title, artist, audioFile) {
     songsStorageRef = refStorage(storage, `songs/${audioFile.name}`)
     const audioUrl = await getDownloadURL(songsStorageRef)
     console.log("url",audioUrl)
+
+    // const params = {
+    //     Bucket: "spotify-10",
+    //     Key: audioFile.name,
+    //     Body: audioFile
+    // };
+    // console.log(myBucket)
+    // let S3Url;
+    //   // Upload the file to S3
+    // myBucket.upload(params, (err, data) => {
+    //     if (err) {
+    //         console.error('Error uploading file:', err);
+    //     } else {
+    //         S3Url = data.Location;
+    //         console.log(S3Url)
+    // }
+    // });
+    
     
     const db = getDatabase();
     const songsListRef = ref(db, 'songs/');
     const newSongRef = push(songsListRef);
-
     set(newSongRef, {
         title: title,
         artist: artist,
@@ -182,3 +212,26 @@ window.addEventListener('load', async () => {
     await getSongs()
 })
 
+onMessage(messaging, (payload) => {
+    console.log('Message received:', payload);
+    const notificationTitle = 'Background Message Title';
+    const notificationOptions = {
+        body: 'Background Message body.',
+        icon: '/firebase-logo.png'
+    };
+  
+    self.registration.showNotification(notificationTitle, notificationOptions);
+})
+
+// onBackgroundMessaging(messaging, (payload) => {
+//     console.log('Received background message:', payload);
+//     // Customize notification here
+//     const notificationTitle = 'Background Message Title';
+//     const notificationOptions = {
+//         body: 'Background Message body.',
+//         icon: '/firebase-logo.png'
+//     };
+  
+//     self.registration.showNotification(notificationTitle, notificationOptions);
+// })
+  
