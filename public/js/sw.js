@@ -5,17 +5,20 @@
 // const dynamicCacheName = 'site-dynamic-v4';
 const assets = [
   '/',
-  '/index.html',
-  '/js/index.js',
-  '/js/app.js',
-  '/js/ui.js',
-  '/js/materialize.min.js',
-  '/css/styles.css',
-  '/css/materialize.min.css',
-  '/icons/',
+  '../index.html',
+  '/index.js',
+  '/app.js',
+  '/ui.js',
+  '/materialize.min.js',
+  '../css/styles.css',
+  '../css/materialize.min.css',
+  '../icons/manifest-icon-192.maskable.png',
+  '../icons/manifest-icon-512.maskable.png',
+  '../icons/apple-icon-180.png',
+  '../manifest.json',
   'https://fonts.googleapis.com/icon?family=Material+Icons',
   'https://fonts.gstatic.com/s/materialicons/v47/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2',
-  '/pages/fallback.html'
+  '../pages/fallback.html'
 ];
 
 // // cache size limit function
