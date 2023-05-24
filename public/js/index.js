@@ -36,9 +36,9 @@ const messaging = getMessaging(app)
 // })
 
 if('serviceWorker' in navigator){
-    navigator.serviceWorker.register('/js/sw.js')
+    navigator.serviceWorker.register('./sw.js')
         .then(registration => {
-            console.log('Service Worker registered:', registration)
+            console.log('Service Worker registered scope:', registration.scope)
             Notification.requestPermission().then((permission) => {
                 if (permission == "granted"){
                     console.log("Notification permission granted")
@@ -210,6 +210,33 @@ form.addEventListener('submit', evt => {
 window.addEventListener('load', async () => {
     songList.innerHTML = ""
     await getSongs()
+
+    // if('serviceWorker' in navigator){
+    //     navigator.serviceWorker.register('./sw.js')
+    //         .then(registration => {
+    //             console.log('Service Worker registered scope:', registration.scope)
+    //             Notification.requestPermission().then((permission) => {
+    //                 if (permission == "granted"){
+    //                     console.log("Notification permission granted")
+    //                     getToken(messaging, {vapidKey: "BMEUMeXFzdfETXOOAJ8u6wdXDoEnOgpv8GPIsjJv3GJyhvkVJ50VfivDt8YiGO-gkwKLir81cDGYPDQzXTQ69PA"})
+    //                         .then((token) => {
+    //                             if (token) {
+    //                                 console.log("token:", token)
+    //                             }
+    //                             else {
+    //                                 console.log('No registration token available')
+    //                             }
+    //                         })
+    //                             //console.log('FCM registration token:', token)
+    //                         .catch((err) => {
+    //                             console.log('An error occurred while retrieving token. ', err)
+    //                         })
+    //                 } else {
+    //                     console.log("Notification permission failed")
+    //                 }
+    //             })})
+    //         .catch(err => console.log('Service worker not registered:', err));
+    // }
 })
 
 onMessage(messaging, (payload) => {
@@ -219,7 +246,7 @@ onMessage(messaging, (payload) => {
         body: 'Background Message body.',
         icon: '/firebase-logo.png'
     };
-  
+
     self.registration.showNotification(notificationTitle, notificationOptions);
 })
 
