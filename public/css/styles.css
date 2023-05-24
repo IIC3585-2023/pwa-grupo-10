@@ -1,8 +1,9 @@
 /* colours */
 :root{
-  --primary: #FFE9D2;
-  --secondary: #FFE1C4;
-  --title: #FF8816;
+  --primary: #146542;
+  --secondary: #ffffff;
+  --title: #ffffff;
+  --back: #000000;;
 }
 
 /* layout styles */
@@ -24,6 +25,7 @@ nav .sidenav-trigger{
 /* recipe styles */
 .recipes{
   margin-top: 20px;
+  background: var(--back) !important;
 }
 .card-panel.recipe{
   border-radius: 8px;
@@ -60,7 +62,7 @@ nav .sidenav-trigger{
 
 /* form-styles */
 .add-btn{
-  background: var(--title) !important;
+  background: var(--primary) !important;
 }
 input{
   box-shadow: none !important;
