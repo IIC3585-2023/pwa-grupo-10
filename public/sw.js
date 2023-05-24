@@ -8,7 +8,7 @@ const assets = [
   '/js/materialize.min.js',
   '/css/styles.css',
   '/css/materialize.min.css',
-  '/img/dish.png',
+  '/icons/',
   'https://fonts.googleapis.com/icon?family=Material+Icons',
   'https://fonts.gstatic.com/s/materialicons/v47/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2',
   '/pages/fallback.html'
@@ -39,7 +39,12 @@ async function cacheData(request) {
 }
 
 async function networkFirst(request) {
-  const cache = await caches.open('dynamic-meme');
+  if (request.url.startsWith('chrome-extension://')) {
+    // Handle chrome-extension scheme requests differently, if needed
+    return fetch(request);
+  }
+
+  const cache = await caches.open('dynamic-spotify');
 
   try {
       const response = await fetch(request);

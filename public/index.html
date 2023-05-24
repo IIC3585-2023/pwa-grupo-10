@@ -3,7 +3,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Food Ninja</title>
+  <title>Spotify</title>
   <!-- materialize icons, css & js -->
   <link type="text/css" href="/css/materialize.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -17,12 +17,12 @@
   <!-- <link rel="apple-touch-icon" href="icons/apple-icon-180.png">
   <meta name="apple-mobile-web-app-capable" content="yes"> -->
 </head>
-<body class="grey lighten-4">
+<body class="black lighten-4">
 
   <!-- top nav -->
   <nav class="z-depth-0">
     <div class="nav-wrapper container">
-      <a href="/">Spotify</span></a>
+      <a href="/"><span>Spotify</span></a>
       <span class="right grey-text text-darken-1">
         <i class="material-icons sidenav-trigger" data-target="side-menu">menu</i>
       </span>
@@ -33,15 +33,9 @@
   <ul id="side-menu" class="sidenav side-menu">
     <li><a class="subheader">Spotify</a></li>
     <li><a href="/" class="waves-effect">Home</a></li>
-    <li><a href="/pages/about.html" class="waves-effect">About</a></li>
-    <li><div class="divider"></div></li>
-    <li><a href="/pages/contact.html" class="waves-effect">
-      <i class="material-icons">mail_outline</i>Contact</a>
-    </li>
   </ul>
 
-  <!-- recipes -->
-  <div class="recipes container grey-text text-darken-1">
+  <div id="all-songs" class="songs container grey-text text-darken-1">
     
   </div>
 
@@ -51,21 +45,21 @@
     </a>
   </div>
 
-  <!-- add recipe side nav -->
+  <!-- add song side nav -->
   <div id="side-form" class="sidenav side-form">
-    <form class="add-recipe container section">
-      <h6>Agregar Nueva Canción</h6>
+    <form class="add-song container section">
+      <h6 class="form-title">AGREGAR NUEVA CANCIÓN</h6>
       <div class="divider"></div>
       <div class="input-field">
-        <input placeholder="e.g. Fix You" id="title" type="text" class="validate">
+        <input placeholder="e.g. Fix You" id="title" type="text" class="validate" required>
         <label for="title">Song Title</label>
       </div>
       <div class="input-field">
-        <input placeholder="e.g. Coldplay" id="artist" type="text" class="validate">
+        <input placeholder="e.g. Coldplay" id="artist" type="text" class="validate" required>
         <label for="artist">Artist</label>
       </div>
       <div class="input-field">
-        <input id="audioFile" type="file" class="validate">
+        <input id="audioFile" type="file" class="validate" required>
         <label for="audioFile">Audio File</label>
       </div>
       <div class="input-field center">
@@ -73,9 +67,6 @@
       </div>
     </form>
   </div>
-
-  <button id="get-songs">Obtener canciones</button>
-  hola
 
   
   <script type="module" src="/js/index.js"></script>
