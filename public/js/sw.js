@@ -6,6 +6,7 @@
 const assets = [
   '/',
   '/index.html',
+  '/js/index.js',
   '/js/app.js',
   '/js/ui.js',
   '/js/materialize.min.js',
